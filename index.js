@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));// parse application/x-www-f
 app.use(bodyParser.json());// parse application/json
 app.use(cookieParser());// parse request cookies
 
-app.post('/store-beacon', (req, res) => {
+app.post('/api/store-beacon', (req, res) => {
   try {
     const bodyPid = req.body.pid;
 
