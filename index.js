@@ -29,7 +29,7 @@ app.post('/store-beacon', (req, res) => {
 
         if (queryResult) {
           // Update the existing beacon with new data
-          collection.updateOne({ pid: bodyPid }, { $set: req.body }, {}, (updateError) => {
+          collection.updateOne({ pid: bodyPid }, { $addToSet: { $$ROOT: { $each: req.body } } }, {}, (updateError) => {
             if (updateError) throw updateError;
             client.close();
             res.json({ message: 'success!' });
