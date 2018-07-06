@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));// parse application/x-www-f
 app.use(bodyParser.json());// parse application/json
 app.use(cookieParser());// parse request cookies
 
-app.post('/api/store-beacon', (req, res) => {
+app.post('/store-beacon', (req, res) => {
   try {
     const bodyPid = req.body.pid;
 
@@ -29,7 +29,7 @@ app.post('/api/store-beacon', (req, res) => {
 
         if (queryResult) {
           // Update the existing beacon with new data
-          collection.updateOne({ pid: bodyPid }, { $addToSet: { $$ROOT: { $each: req.body } } }, {}, (updateError) => {
+          collection.updateOne({ pid: bodyPid }, { $set: req.body }, {}, (updateError) => {
             if (updateError) throw updateError;
             client.close();
             res.json({ message: 'success!' });
